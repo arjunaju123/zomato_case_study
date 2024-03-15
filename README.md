@@ -52,6 +52,10 @@ This repository contains the code and documentation for performing Extract, Tran
 
 ![Workflow Architecture](assets/zomato_plan.jpg)
 
+## PowerBI Analysis
+
+![PowerBI Analysis](assets/zomato_dashboard.png)
+
 Please refer to the individual notebooks for detailed code implementation and analysis.
 
 For any questions or clarifications, feel free to contact [ARJUN] at [54721arjun@gmail.com].
