@@ -50,7 +50,7 @@ This repository contains the code and documentation for performing Extract, Tran
 
 ## Workflow Architecture
 
-![Workflow Architecture](assets\zomato_plan.jpg)
+![Workflow Architecture](assets/zomato_plan.jpg)
 
 Please refer to the individual notebooks for detailed code implementation and analysis.
 
