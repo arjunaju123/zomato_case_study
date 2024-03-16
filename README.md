@@ -60,6 +60,7 @@ This repository contains the code and documentation for performing Extract, Tran
 │   └── staging.py
 │   └── Transform.py
 │   └── utils.py
+├── logs/
 ├── README.md
 └── requirement.txt
 └── Workflow_Architecture.png
