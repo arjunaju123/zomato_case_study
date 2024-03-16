@@ -1,13 +1,14 @@
+import yaml
 import pandas as pd
 import sqlalchemy
-from bs4 import BeautifulSoup
-from joblib import Parallel, delayed
-import multiprocessing
-from tqdm import tqdm
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
-import seaborn as sns
+# from bs4 import BeautifulSoup
+# from joblib import Parallel, delayed
+# import multiprocessing
+# from tqdm import tqdm
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import matplotlib
+# import seaborn as sns
 from extract import fetch_lat_long_parallel
 from staging import create_sql
 from Transform import fetch_staging_data,drop_columns,remove_columns_with_high_null_percentage,translate_ratings,drop_duplicates
@@ -19,27 +20,32 @@ import logging
 # Configure logging settings
 logging.basicConfig(filename='..\logs\etl_pipeline.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Define database connection details
-db_username = 'root'
-db_password = 'experion%40123'
-db_host = 'localhost'
-db_port = '3306'
-db_name = 'zomato_db'
+def connect_to_database(config):
+    try:
+        engine = sqlalchemy.create_engine(f"mysql+pymysql://{config['database']['username']}:{config['database']['password']}@{config['database']['host']}:{config['database']['port']}/{config['database']['name']}")
+        return engine
+    except Exception as e:
+        logging.error(f"An error occurred while connecting to the database: {e}")
 
-# Define the engine to connect to the MySQL database
-engine = sqlalchemy.create_engine(f'mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}')
+def read_config(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            config = yaml.safe_load(file)
+        return config
+    except Exception as e:
+        logging.error(f"An error occurred while reading the config file: {e}")
 
 # Extract function
-def extract_data():
+def extract_data(input_file_path,output_file_path):
     logging.info("Extracting data...")
     # Read your dataset into a DataFrame
-    fetch_lat_long_parallel(r"..\data\output\restaurant_data_with_lat_long_46000.csv", r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")
-    df = pd.read_csv(r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")
+    fetch_lat_long_parallel(input_file_path, output_file_path)
+    df = pd.read_csv(output_file_path)
     logging.info("Extracting data completed.")
     return df
 
 # Staging function
-def stage_data(df):
+def stage_data(df,engine):
     logging.info("Staging data...")
     # Define the table name for the staging data
     staging_table_name = 'staging_data'
@@ -53,16 +59,11 @@ def stage_data(df):
     logging.info("Staging data completed.")
 
 # Transformation function
-def transform_data():
+def transform_data(engine):
     # Load data from the staging table
     logging.info("Transforming data...")
     staging_table_name = 'staging_data'
-
     staging_df = fetch_staging_data(engine, staging_table_name)
-    # with engine.connect() as conn:
-    #     # Query the staging data
-    #     query = f"SELECT * FROM staging_data"
-    #     staging_df = pd.read_sql(query, conn)
     print("columns in data for transforming are:",staging_df.columns)
 
     data = staging_df.copy()
@@ -89,7 +90,7 @@ def transform_data():
     return data
 
 # Loading function
-def load_data(data):
+def load_data(data,engine):
     logging.info("Loading data...")
     # Load data into the fact and dimension tables
     # Example: Load data into restaurant_dim_table, location_dim_table, fact_table, etc.
@@ -115,23 +116,25 @@ def main():
 
     try:
         # Extract data
+        config = read_config('..\config.yml')
+        engine = connect_to_database(config)
         print("Extracting data...")
-        df = extract_data()
-        #df = pd.read_csv(r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")#For demo purposes
+        #df = extract_data(config['files']['input_csv'],config['files']['output_csv'])
+        df = pd.read_csv(r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")#For demo purposes
         print("Extracting data completed...")
         print("columns in data after extracting are:",df.columns)
         # Stage data
         print("Staging data...")
-        stage_data(df)
+        stage_data(df,engine)
         print("Staging data completed...")
         # Transform data
         print("Transforming data...")
-        transformed_data = transform_data()
+        transformed_data = transform_data(engine)
         print("Transforming data completed...")
         print("columns in data after transforming are:",transformed_data.columns)
         # Load data
         print("Loading data...")
-        load_data(transformed_data)
+        load_data(transformed_data,engine)
         logging.info("ETL Pipeline completed successfully.")
         print("Loading data completed...")
         print("ETL Pipeline completed successfully.")

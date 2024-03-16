@@ -6,3 +6,39 @@
 2024-03-16 16:55:03,702 - INFO - Loading data...
 2024-03-16 16:55:19,347 - INFO - Loading data completed.
 2024-03-16 16:55:19,348 - INFO - ETL Pipeline completed successfully.
+2024-03-16 23:50:06,492 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yml'
+2024-03-16 23:50:06,493 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:50:06,493 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:51:51,160 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yml'
+2024-03-16 23:51:51,160 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:51:51,164 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:52:09,637 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yml'
+2024-03-16 23:52:09,637 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:52:09,643 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:52:52,187 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yaml'
+2024-03-16 23:52:52,187 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:52:52,190 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:53:39,642 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yaml'
+2024-03-16 23:53:39,642 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:53:39,642 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:54:16,326 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yml'
+2024-03-16 23:54:16,326 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:54:16,326 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:55:12,728 - ERROR - An error occurred while reading the config file: [Errno 2] No such file or directory: 'config.yml'
+2024-03-16 23:55:12,732 - ERROR - An error occurred while connecting to the database: 'NoneType' object is not subscriptable
+2024-03-16 23:55:12,732 - ERROR - An error occurred: 'NoneType' object is not subscriptable
+2024-03-16 23:55:44,709 - INFO - Extracting data...
+2024-03-16 23:58:03,308 - INFO - Staging data...
+2024-03-16 23:58:14,770 - INFO - Staging data completed.
+2024-03-16 23:58:14,770 - INFO - Transforming data...
+2024-03-16 23:58:17,977 - INFO - Transforming data completed.
+2024-03-16 23:58:17,993 - INFO - Loading data...
+2024-03-16 23:58:34,120 - INFO - Loading data completed.
+2024-03-16 23:58:34,120 - INFO - ETL Pipeline completed successfully.
+2024-03-17 00:00:14,715 - INFO - Staging data...
+2024-03-17 00:00:25,386 - INFO - Staging data completed.
+2024-03-17 00:00:25,387 - INFO - Transforming data...
+2024-03-17 00:00:28,611 - INFO - Transforming data completed.
+2024-03-17 00:00:28,627 - INFO - Loading data...
+2024-03-17 00:00:41,365 - INFO - Loading data completed.
+2024-03-17 00:00:41,365 - INFO - ETL Pipeline completed successfully.
