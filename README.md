@@ -60,6 +60,7 @@ This repository contains the code and documentation for performing Extract, Tran
 │   └── staging.py
 │   └── Transform.py
 │   └── utils.py
+├── config.yml
 ├── logs/
 ├── README.md
 └── requirement.txt
@@ -68,11 +69,11 @@ This repository contains the code and documentation for performing Extract, Tran
 
 ## Workflow Architecture
 
-![Workflow Architecture](assets/zomato_plan.jpg)
+![Workflow Architecture](artifacts/zomato_plan.jpg)
 
 ## PowerBI Analysis
 
-![PowerBI Analysis](assets/zomato_dashboard.png)
+![PowerBI Analysis](artifacts/zomato_dashboard.png)
 
 Please refer to the individual notebooks for detailed code implementation and analysis.
 
