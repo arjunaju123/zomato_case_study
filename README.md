@@ -7,11 +7,21 @@ This repository contains the code and documentation for performing Extract, Tran
 ## Project Structure
 
 - **Data**: Contains the raw and processed datasets.
-- **Notebooks**:
+- **merge_csv.py**: Combines all the datasets in different directories into a single one.
+- **Notebooks & Web scraping files**:
   - **scraping.ipynb**: Web scraping using Beautiful soup to enrich the data using extra features like Latitude and Longitude
+    - **data_enrichment.py**: If the dataset is small, go for this method and if dataset is big it will take a large time to scrap each datapoint.
+    - **data_enrichment_parallel2.py**: For larger dataset this method is adopted but chance of missing values in the scraped column increases.
   - **staging.ipynb**: Combines and cleans the raw data, performs data quality checks, and loads it into a staging table in MySQL.
   - **Transform_Load&EDA.ipynb**: Transforms the data, performs exploratory data analysis (EDA), creates reporting tables in MySQL, and loads the fact and dimension tables into PowerBI for dashboard creation.
   - **predictive_analysis.ipynb**: Conducts predictive analysis on the dataset, including feature selection, preprocessing, model training (Linear Regression, Decision Tree Regression, Random Forest Regression), evaluation, and selection of the final model.
+
+- **Modular code**:
+  - **etl_pipeline.py**: Run this file for the full streamlined processing of ETL pipeline.
+  - **extract.py**:Extract the data from flat files and API's.
+  - **staging.py**:Load the extracted data into staging area in Mysql database.
+  - **Transform.py**:Perform essential Data transformations and create the star schema required for loading the data.
+  - **Load.py**:- Load the data into the Mysql database for further analysis using PowerBI and predictive modeling.
 
 ## Workflow
 
@@ -36,12 +46,19 @@ This repository contains the code and documentation for performing Extract, Tran
 │   ├── input/
 │   ├── output/
 ├── Experiment/
-│   ├── scrapping.ipynb
-│   ├── staging.ipynb
+│   ├── data_enrichment.py
+│   ├── data_enrichment_parallel2.py
+│   ├── merge_csv.py
+│   ├── Scrapping.ipynb
+│   ├── Staging.ipynb
 │   ├── Transform_Load&EDA.ipynb
 ├── src/
-│   └── ETL_pipeline.py
+│   └── etl_pipeline.py
+│   └── extract.py
+│   └── Load.py
 │   └── predictive_analysis.ipynb
+│   └── staging.py
+│   └── Transform.py
 │   └── utils.py
 ├── README.md
 └── requirement.txt
