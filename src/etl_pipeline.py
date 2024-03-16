@@ -14,6 +14,11 @@ from Transform import fetch_staging_data,drop_columns,remove_columns_with_high_n
 from Transform import create_location_dim_table,create_restaurant_dim_table,create_fact_table
 from Transform import plot_pie_chart,plot_ratings_distribution,plot_top_restaurants,plot_boxplot,plot_scatter
 from Load import load_data_into_table
+import logging
+
+# Configure logging settings
+logging.basicConfig(filename='..\logs\etl_pipeline.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 # Define database connection details
 db_username = 'root'
 db_password = 'experion%40123'
@@ -26,13 +31,16 @@ engine = sqlalchemy.create_engine(f'mysql+pymysql://{db_username}:{db_password}@
 
 # Extract function
 def extract_data():
+    logging.info("Extracting data...")
     # Read your dataset into a DataFrame
     fetch_lat_long_parallel(r"..\data\output\restaurant_data_with_lat_long_46000.csv", r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")
     df = pd.read_csv(r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")
+    logging.info("Extracting data completed.")
     return df
 
 # Staging function
 def stage_data(df):
+    logging.info("Staging data...")
     # Define the table name for the staging data
     staging_table_name = 'staging_data'
 
@@ -42,10 +50,12 @@ def stage_data(df):
 
     # Load data into the staging table
     df.to_sql(staging_table_name, con=engine, if_exists='replace', index=False)
+    logging.info("Staging data completed.")
 
 # Transformation function
 def transform_data():
     # Load data from the staging table
+    logging.info("Transforming data...")
     staging_table_name = 'staging_data'
 
     staging_df = fetch_staging_data(engine, staging_table_name)
@@ -75,10 +85,12 @@ def transform_data():
     # plot_boxplot(data)
     # plot_scatter(data)
 
+    logging.info("Transforming data completed.")
     return data
 
 # Loading function
 def load_data(data):
+    logging.info("Loading data...")
     # Load data into the fact and dimension tables
     # Example: Load data into restaurant_dim_table, location_dim_table, fact_table, etc.
 
@@ -97,33 +109,39 @@ def load_data(data):
     fact_table_name = 'fact_table'  # Update with your fact table name
     fact_columns = ['RATING', 'VOTES', 'PRICE']
     load_data_into_table(data, fact_table_name, engine, columns=fact_columns)
+    logging.info("Loading data completed.")
 
 def main():
-    # Extract data
-    print("Extracting data...")
-    df = extract_data()
-    #df = pd.read_csv(r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")#For demo purposes
-    print("Extracting data completed...")
-    print("columns in data after extracting are:",df.columns)
-    # Stage data
-    print("Staging data...")
-    stage_data(df)
-    print("Staging data completed...")
-    # Transform data
-    print("Transforming data...")
-    transformed_data = transform_data()
-    print("Transforming data completed...")
-    print("columns in data after transforming are:",transformed_data.columns)
-    # Load data
-    print("Loading data...")
-    load_data(transformed_data)
-    print("Loading data completed...")
-    print("ETL Pipeline completed successfully.")
 
-    latitude_values_count = transformed_data['Latitude'].count()
+    try:
+        # Extract data
+        print("Extracting data...")
+        df = extract_data()
+        #df = pd.read_csv(r"..\data\output\restaurant_data_with_lat_long_46000_updated_ETL_Pipeline.csv")#For demo purposes
+        print("Extracting data completed...")
+        print("columns in data after extracting are:",df.columns)
+        # Stage data
+        print("Staging data...")
+        stage_data(df)
+        print("Staging data completed...")
+        # Transform data
+        print("Transforming data...")
+        transformed_data = transform_data()
+        print("Transforming data completed...")
+        print("columns in data after transforming are:",transformed_data.columns)
+        # Load data
+        print("Loading data...")
+        load_data(transformed_data)
+        logging.info("ETL Pipeline completed successfully.")
+        print("Loading data completed...")
+        print("ETL Pipeline completed successfully.")
 
-    print("Total number of values in the 'latitude' column:", latitude_values_count)
-    print("Total size of dataset:", transformed_data.shape)
+        latitude_values_count = transformed_data['Latitude'].count()
+
+        print("Total number of values in the 'latitude' column:", latitude_values_count)
+        print("Total size of dataset:", transformed_data.shape)
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
