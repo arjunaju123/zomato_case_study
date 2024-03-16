@@ -37,6 +37,12 @@ df = pd.read_csv(r"..\data\restaurant_data_with_lat_long_45000.csv")
 # Convert 'RATING' column to numeric type
 df['RATING'] = pd.to_numeric(df['RATING'], errors='coerce')  
 
+if 'Latitude' not in df.columns:
+    df['Latitude'] = None
+
+if 'Longitude' not in df.columns:
+    df['Longitude'] = None
+
 # Filter rows where Latitude or Longitude is None
 filtered_df = df[(df['Latitude'].isnull()) | (df['Longitude'].isnull())]
 

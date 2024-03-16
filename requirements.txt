@@ -8,3 +8,4 @@ pymysql
 scipy
 scikit-learn
 plotly
+matplotlib
