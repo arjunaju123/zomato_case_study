@@ -1,12 +1,12 @@
 import yaml
 import pandas as pd
 import sqlalchemy
-from extract import fetch_lat_long_parallel
-from staging import create_sql
-from Transform import fetch_staging_data,drop_columns,remove_columns_with_high_null_percentage,translate_ratings,drop_duplicates
-from Transform import create_location_dim_table,create_restaurant_dim_table,create_fact_table
-from Transform import plot_pie_chart,plot_ratings_distribution,plot_top_restaurants,plot_boxplot,plot_scatter
-from Load import load_data_into_table
+from utils.extract import fetch_lat_long_parallel
+from utils.staging import create_sql
+from utils.Transform import fetch_staging_data,drop_columns,remove_columns_with_high_null_percentage,translate_ratings,drop_duplicates
+from utils.Transform import create_location_dim_table,create_restaurant_dim_table,create_fact_table
+from utils.Transform import plot_pie_chart,plot_ratings_distribution,plot_top_restaurants,plot_boxplot,plot_scatter
+from utils.Load import load_data_into_table
 import logging
 from utils.common_utils import read_config,connect_to_database
 
