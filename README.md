@@ -55,19 +55,20 @@ This repository contains the code and documentation for performing Extract, Tran
 ├── src/
 │   └── __init__.py
 │   └── etl_pipeline.py
-│   └── extract.py
-│   └── Load.py
-│   └── predictive_analysis.ipynb
-│   └── staging.py
-│   └── Transform.py
 │   ├── utils/
 │       └── __init__.py
 │       └── common_utils.py
 │       └── etl.py
+│       └── extract.py
+│       └── Load.py
+│       └── staging.py
+│       └── Transform.py
+│   └── predictive_analysis.ipynb
 ├── config.yml
 ├── logs/
 ├── README.md
 └── requirement.txt
+└── setup.py
 └── Workflow_Architecture.png
 ```
 

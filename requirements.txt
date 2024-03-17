@@ -10,3 +10,5 @@ scikit-learn
 plotly
 matplotlib
 PyYAML
+
+-e . ### <<< To install local packages defined in setup.py
