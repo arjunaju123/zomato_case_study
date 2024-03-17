@@ -53,13 +53,17 @@ This repository contains the code and documentation for performing Extract, Tran
 │   ├── Staging.ipynb
 │   ├── Transform_Load&EDA.ipynb
 ├── src/
+│   └── __init__.py
 │   └── etl_pipeline.py
 │   └── extract.py
 │   └── Load.py
 │   └── predictive_analysis.ipynb
 │   └── staging.py
 │   └── Transform.py
-│   └── utils.py
+│   ├── utils/
+│       └── __init__.py
+│       └── common_utils.py
+│       └── etl.py
 ├── config.yml
 ├── logs/
 ├── README.md
