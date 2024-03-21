@@ -63,7 +63,14 @@ This repository contains the code and documentation for performing Extract, Tran
 │       └── Load.py
 │       └── staging.py
 │       └── Transform.py
+│   └── training.py
+│   ├── ML_utils/
+│       └── __init__.py
+│       └── data_loader.py
+│       └── data_preprocessing.py
+│       └── modeling.py
 │   └── predictive_analysis.ipynb
+├── ML_config.yml
 ├── config.yml
 ├── logs/
 ├── README.md
