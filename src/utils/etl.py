@@ -74,15 +74,20 @@ def load_data(data,engine,config):
     restaurant_dim_table_name = config['params'] ['dimension_table_1'] # Update with your restaurant dimension table name
     restaurant_columns = config['params'] ['dimension_table_1_columns']
     load_data_into_table(data, restaurant_dim_table_name, engine, columns=restaurant_columns)
-    print("columns in data during loading are:",data.columns)
+    print("shape of data after loading is:",data.shape)
+    print("columns in data during loading to restaurant dimension are:",data.columns)
 
     # Load data into the location dimension table
     location_dim_table_name = config['params'] ['dimension_table_2']  # Update with your location dimension table name
     location_columns = config['params'] ['dimension_table_2_columns']
     load_data_into_table(data, location_dim_table_name, engine, columns=location_columns)
+    print("shape of data after loading is:",data.shape)
+    print("columns in data during loading to location dimension are:",data.columns)
 
     # Load data into the fact table
     fact_table_name = config['params'] ['fact_table_1']   # Update with your fact table name
     fact_columns = config['params'] ['fact_table_1_columns']
     load_data_into_table(data, fact_table_name, engine, columns=fact_columns)
+    print("columns in data during loading to fact dimension are:",data.columns)
+    print("shape of data after loading is:",data.shape)
     logging.info("Loading data completed.")

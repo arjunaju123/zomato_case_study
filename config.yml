@@ -15,5 +15,5 @@ params:
   fact_table_1: fact_table
   dimension_table_1_columns: ['NAME', 'CUSINE_CATEGORY', 'CUSINETYPE', 'TIMING', 'RATING_TYPE']
   dimension_table_2_columns: ['REGION', 'Latitude', 'Longitude', 'CITY']
-  fact_table_1_columns: ['RATING', 'VOTES', 'PRICE']
+  fact_table_1_columns: ['RATING', 'VOTES', 'PRICE','restaurant_id','location_id']
 

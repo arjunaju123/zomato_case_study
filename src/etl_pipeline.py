@@ -25,7 +25,8 @@ def main():
         print("Transforming data...")
         transformed_data = transform_data(engine)
         print("Transforming data completed...")
-        print("columns in data after transforming are:",transformed_data.columns)
+
+        print("columns in data after transforming are(excluding surrogate keys which are added directly to database):",transformed_data.columns)
         # Load data
         print("Loading data...")
         load_data(transformed_data,engine,config)

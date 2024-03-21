@@ -86,7 +86,7 @@ def create_location_dim_table(engine, data):
     initial_sql = "CREATE TABLE IF NOT EXISTS " + sql_table_name + "(location_id INT AUTO_INCREMENT PRIMARY KEY"
 
     columns = ['REGION', 'Latitude', 'Longitude', 'CITY'] 
-    create_sql(engine, data, columns,sql=initial_sql)
+    create_sql(engine, data, columns,sql_table_name,sql=initial_sql)
 
 def create_restaurant_dim_table(engine, data):
     '''Create restaurant dimension table'''
@@ -94,7 +94,7 @@ def create_restaurant_dim_table(engine, data):
     initial_sql = "CREATE TABLE IF NOT EXISTS " + sql_table_name + "(restaurant_id INT AUTO_INCREMENT PRIMARY KEY"
 
     columns = ['NAME', 'CUSINE_CATEGORY', 'CUSINETYPE', 'TIMING', 'RATING_TYPE']
-    create_sql(engine, data, columns,sql=initial_sql)
+    create_sql(engine, data, columns, sql_table_name,sql=initial_sql)
 
 def create_fact_table(engine, data):
     '''Create fact table'''
@@ -102,9 +102,9 @@ def create_fact_table(engine, data):
     initial_sql = "CREATE TABLE IF NOT EXISTS " + sql_table_name + "(fact_id INT AUTO_INCREMENT PRIMARY KEY"
 
     columns = ['RATING', 'VOTES', 'PRICE']
-    create_sql(engine, data, columns,sql=initial_sql)
+    create_sql(engine, data, columns, sql_table_name,sql=initial_sql)
 
-def create_sql(engine, df, columns, sql=''):
+def create_sql(engine, df, columns,sql_table_name,sql=''):
     '''Create MySQL schema'''
     def rename_df_cols(df):
         col_no_space = dict((i, i.replace(' ', '')) for i in list(df.columns))
@@ -123,17 +123,38 @@ def create_sql(engine, df, columns, sql=''):
     df = rename_df_cols(df)
     map_data = dtype_mapping()
 
-    for col in columns:
-        if col in df.columns:
+    print("sql table name is ",sql_table_name)
+
+    if(sql_table_name=='fact_table'):
+
+        for col in columns:
+            if col in df.columns:
+                dtype = str(df[col].dtype)
+                mysql_dtype = map_data.get(dtype)
+                if mysql_dtype:
+                    sql += ", " + col + ' ' + mysql_dtype
+                
+
+        # Create SQL statement
+        sql += ", restaurant_id INT, location_id INT"  # Add restaurant_id and location_id columns
+
+        sql += ", FOREIGN KEY (restaurant_id) REFERENCES restaurant_dim_table(restaurant_id)"
+        sql += ", FOREIGN KEY (location_id) REFERENCES location_dim_table(location_id)"
+
+        sql += ")"
+
+    elif(sql_table_name=='restaurant_dim_table' or sql_table_name=='location_dim_table'):
+
+        # Create SQL statement
+        for col in columns:
             dtype = str(df[col].dtype)
             mysql_dtype = map_data.get(dtype)
             if mysql_dtype:
                 sql += ", " + col + ' ' + mysql_dtype
 
-    sql += ", restaurant_id INT, location_id INT"
-    sql += ", FOREIGN KEY (restaurant_id) REFERENCES restaurant_dim_table(restaurant_id)"
-    sql += ", FOREIGN KEY (location_id) REFERENCES location_dim_table(location_id)"
-    sql += ")"
+        sql += ")"
+
+    print('\n', sql, '\n')
     
     try:
         conn = engine.raw_connection()
