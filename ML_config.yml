@@ -1,0 +1,25 @@
+database:
+  username: root
+  password: experion%40123
+  host: localhost
+  port: 3306
+  name: zomato_db
+
+params:
+  dimension_table_1: restaurant_dim_table
+  dimension_table_2: location_dim_table
+  fact_table_1: fact_table
+  Target_column: 'RATING'
+  selected_columns_for_prediction: ['CUSINETYPE', 'CITY', 'cusine_count', 'RATING_TYPE','VOTES','PRICE']
+  rating_type_category_mapping: {'Excellent': 5, 'Very Good': 4, 'Good': 3, 'Average': 2, 'Poor': 1}
+  test_size: 0.3
+  random_state: 428
+
+DT:
+  max_depth: 6
+  criterion: 'friedman_mse'
+
+RF:
+  max_depth: 2
+  n_estimators: 400
+  criterion: 'friedman_mse'

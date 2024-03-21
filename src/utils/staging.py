@@ -1,5 +1,8 @@
 import pandas as pd
 import sqlalchemy
+from utils.common_utils import read_config
+
+config = read_config('..\config.yml')
 
 # Read the CSV file into a DataFrame
 #df = pd.read_csv(r'..\path_to_scraped_csv_file')
@@ -17,13 +20,7 @@ def rename_df_cols(df):
 
 def dtype_mapping():
     '''Returns a dict to refer correct data type for mysql'''
-    return {'object' : 'TEXT',
-        'int64' : 'BIGINT',
-        'float64' : 'FLOAT',
-        'datetime64' : 'DATETIME',
-        'bool' : 'TINYINT',
-        'category' : 'TEXT',
-        'timedelta[ns]' : 'TEXT'}
+    return config['params']['dtype_mapping']
 
 #engine = sqlchemy.create_engine('mysql+pymsql://<username>:<password>@<server-name>:<port_number>/<database_name>')
 

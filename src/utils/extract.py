@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 from joblib import Parallel, delayed
 import multiprocessing
 from tqdm import tqdm
+from utils.common_utils import read_config
+
+config = read_config('..\config.yml')
 
 def extract_lat_long(url):
     """
@@ -10,9 +13,7 @@ def extract_lat_long(url):
     """
     import requests
 
-    header = {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36'
-    }
+    header = config['params']['header']
     response = requests.get(url, headers=header)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')

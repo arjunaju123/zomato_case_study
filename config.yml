@@ -16,4 +16,56 @@ params:
   dimension_table_1_columns: ['NAME', 'CUSINE_CATEGORY', 'CUSINETYPE', 'TIMING', 'RATING_TYPE']
   dimension_table_2_columns: ['REGION', 'Latitude', 'Longitude', 'CITY']
   fact_table_1_columns: ['RATING', 'VOTES', 'PRICE','restaurant_id','location_id']
+  null_percentage_limit : 60
+  dtype_mapping: {'object': 'TEXT',
+                'int64': 'BIGINT',
+                'float64': 'FLOAT',
+                'datetime64': 'DATETIME',
+                'bool': 'TINYINT',
+                'category': 'TEXT',
+                'timedelta[ns]': 'TEXT'}
+  translation_map : {
+        'Sangat Baik': 'Very Good',
+        'Veľmi dobré': 'Very Good',
+        'Baik': 'Good',
+        'Bom': 'Good',
+        'Çok iyi': 'Very Good',
+        'İyi': 'Good',
+        'Buono': 'Good',
+        'Média': 'Average',
+        'Dobré': 'Good',
+        'Velmi dobré': 'Very Good',
+        'Ottimo': 'Excellent',
+        'Bueno': 'Good',
+        'Promedio': 'Average',
+        'Excelente': 'Excellent',
+        'Muito bom': 'Very Good',
+        'Ortalama': 'Average',
+        'Vynikajúce': 'Excellent',
+        'Muito Bom': 'Very Good',
+        'Muy Bueno': 'Very Good',
+        'Media': 'Average',
+        'Skvělá volba': 'Excellent',
+        'Průměr': 'Average',
+        'Średnio': 'Average',
+        'Wybitnie': 'Excellent',
+        'Skvělé': 'Excellent',
+        'Eccellente': 'Excellent',
+        'Biasa': 'Average',
+        'Dobrze': 'Good',
+        'Bardzo dobrze': 'Very Good',
+        'Terbaik': 'Excellent',
+        'Priemer': 'Average',
+        'Nedostatek hlasů': 'Not rated',
+        'Excellent': 'Excellent',
+        'Very Good': 'Very Good',
+        'Good': 'Good',
+        'Average': 'Average',
+        'Poor': 'Poor',
+        'Not rated': 'Not rated'
+    }
+
+  header: {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36'
+    }
 
