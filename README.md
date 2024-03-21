@@ -52,6 +52,7 @@ This repository contains the code and documentation for performing Extract, Tran
 │   ├── Scrapping.ipynb
 │   ├── Staging.ipynb
 │   ├── Transform_Load&EDA.ipynb
+│   ├── predictive_analysis.ipynb
 ├── src/
 │   └── __init__.py
 │   └── etl_pipeline.py
@@ -69,7 +70,6 @@ This repository contains the code and documentation for performing Extract, Tran
 │       └── data_loader.py
 │       └── data_preprocessing.py
 │       └── modeling.py
-│   └── predictive_analysis.ipynb
 ├── ML_config.yml
 ├── config.yml
 ├── logs/
