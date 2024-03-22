@@ -1,5 +1,3 @@
-import pandas as pd
-
 def add_auto_increment_ids(data, start_id=1):
     '''Add auto-increment IDs to DataFrame'''
     # If restaurant_id and location_id columns don't exist, create them
@@ -16,7 +14,7 @@ def process_data(data, start_id=1):
         max_restaurant_id = data['restaurant_id'].max()
         max_location_id = data['location_id'].max()
         new_data = add_auto_increment_ids(data, max(max_restaurant_id, max_location_id) + 1)
-        print("shape of data after loading in new_data is:",new_data.shape)
+        #print("shape of data after loading in new_data is:",new_data.shape)
         return new_data
     # If restaurant_id and location_id columns don't exist, create them and add values
     else:
@@ -25,22 +23,13 @@ def process_data(data, start_id=1):
 
 def load_data_into_table(data, table_name, engine, columns=None):
     '''Load data into specified table'''
-    # Truncate the table
-    # with engine.connect() as con:
-    #     con.execute(f"DELETE FROM {table_name}")
-        
-    # Example usage:
-    # Process data with auto-increment IDs
-    print("columns in data before processing:", data.columns)
+    #print("columns in data before processing:", data.columns)
     processed_data = process_data(data)
-    print("Processed data shape is:", processed_data.shape)
-
+    #print("Processed data shape is:", processed_data.shape)
     if columns is None:
         columns = processed_data.columns
-    
-    print(columns)
-    print(processed_data.head(3))
-    
+    #print(columns)
+    #print(processed_data.head(3))    
     # Load data into the table
     processed_data[columns].to_sql(table_name, con=engine, if_exists='append', index=False)
 

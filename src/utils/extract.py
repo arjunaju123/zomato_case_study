@@ -12,7 +12,6 @@ def extract_lat_long(url):
     Extract latitude and longitude from a given URL.
     """
     import requests
-
     header = config['params']['header']
     response = requests.get(url, headers=header)
     if response.status_code == 200:
@@ -37,10 +36,8 @@ def fetch_lat_long_parallel(input_csv_path, output_csv_path):
     """
     # Read the dataset into a DataFrame
     df = pd.read_csv(input_csv_path)
-
     # Convert 'RATING' column to numeric type
     df['RATING'] = pd.to_numeric(df['RATING'], errors='coerce')  
-
     # Check if 'Latitude' and 'Longitude' columns exist, if not create them
     if 'Latitude' not in df.columns:
         df['Latitude'] = None
@@ -50,10 +47,8 @@ def fetch_lat_long_parallel(input_csv_path, output_csv_path):
 
     # Filter rows where Latitude or Longitude is None
     filtered_df = df[(df['Latitude'].isnull()) | (df['Longitude'].isnull())]
-
     # Use multiprocessing to speed up processing
     num_cores = multiprocessing.cpu_count()  # Number of CPU cores
-
     # Function to extract latitude and longitude from a URL using tqdm
     def extract_lat_long_tqdm(row):
         return extract_lat_long(row['URL'])

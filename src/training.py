@@ -1,10 +1,7 @@
 # main.py
-import sqlalchemy
-import pymysql
 from ML_utils.data_loader import load_data
 from ML_utils.data_preprocessing import preprocess_data
 from utils.common_utils import connect_to_database,read_config
-import pandas as pd
 
 # Connect to MySQL database
 ML_config = read_config('..\ML_config.yml')
@@ -12,22 +9,21 @@ engine = connect_to_database(ML_config)
 
 staging_table_names = [ML_config['params']['fact_table_1'], ML_config['params']['dimension_table_1'], ML_config['params']['dimension_table_2']]
 
-print("staging started...")
 # Load data from database
+print("staging started...")
 staging_tables = load_data(engine, staging_table_names)
 print("staging completed...")
+#print(staging_tables)
 
-print(staging_tables)
-
-# Preprocess data
-print("prprocessing started...")
+# Preprocess data..
+print("preprocessing started...")
 X_train, X_test, y_train, y_test = preprocess_data(staging_tables, ML_config['params']['Target_column'])
 print("prprocessing completed...")
 
-print(X_train.shape)
-print(y_train.shape)
-print(X_test.shape)
-print(y_test.shape)
+# print(X_train.shape)
+# print(y_train.shape)
+# print(X_test.shape)
+# print(y_test.shape)
 
 ##### Only import the ML_utils module below. #####
 

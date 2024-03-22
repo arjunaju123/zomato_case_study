@@ -2,8 +2,6 @@
 
 import pandas as pd
 
-#staging_table_names = ['fact_table', 'restaurant_dim_table', 'location_dim_table']
-
 def load_data(engine, staging_table_names):
     # Create an empty list to store DataFrames
     print("engine is", engine)

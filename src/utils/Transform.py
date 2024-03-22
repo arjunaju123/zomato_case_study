@@ -1,17 +1,10 @@
 import pandas as pd
-import sqlalchemy
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
 import seaborn as sns
 from utils.common_utils import read_config
 
 config = read_config('..\config.yml')
-
-# def connect_to_database():
-#     '''Connect to MySQL database and return engine'''
-#     engine = sqlalchemy.create_engine('mysql+pymysql://root:experion%40123@localhost:3306/zomato_db')
-#     return engine
 
 def fetch_staging_data(engine, staging_table_name):
     '''Fetch data from staging table'''
@@ -63,7 +56,6 @@ def create_fact_table(engine, data):
     '''Create fact table'''
     sql_table_name = 'fact_table'
     initial_sql = "CREATE TABLE IF NOT EXISTS " + sql_table_name + "(fact_id INT AUTO_INCREMENT PRIMARY KEY"
-
     columns = config['params']['fact_table_1_columns']
     create_sql(engine, data, columns, sql_table_name,sql=initial_sql)
 
